@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<meta charset="utf8"/>
+<meta http-equiv="pragma" content="no-cache"/>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="apple-mobile-web-app-title" content="Year Clock"/>
+
+<title>Year Clock</title>
+<script>
+function drawClock(){
+  var td1 = new Date();
+  var y = td1.getFullYear();
+  var s = td1.getSeconds();
+  var td0 = new Date( y, 0, 1 );
+  var td2 = new Date( y + 1, 0, 1 );
+
+  var t0 = td0.getTime();
+  var t1 = td1.getTime();
+  var t2 = td2.getTime();
+
+  var canvas = document.getElementById( 'myCanvas' );
+  if( !canvas || !canvas.getContext ){
+    return false;
+  }
+  var ctx = canvas.getContext( '2d' );
+
+	//. 円の情報
+	var r = 250;
+	var x0 = 300;
+	var y0 = 300;
+
+	//. 円を描画
+	ctx.beginPath();
+	ctx.arc( x0, y0, r, 0 * Math.PI / 180, 360 * Math.PI / 180, false );
+	ctx.fillStyle = "rgba( 128, 255, 128, 0.8 )";
+	ctx.fill();
+	ctx.strokeStyle = "green";
+	ctx.lineWidth = 5;
+	ctx.stroke();
+
+	//. 経過部分を描画
+	var deg = 360 * ( t1 - t0 ) / ( t2 - t0 ) - 90;
+	ctx.beginPath();
+	ctx.arc( x0, y0, r, -90 * Math.PI / 180, deg * Math.PI / 180, false );
+	ctx.lineTo( x0, y0 );  //. これでパックマン型にする
+	ctx.fillStyle = "rgba( 255, 128, 128, 0.8 )";
+	ctx.fill();
+
+	//. 秒針を描画
+	var d = s * 6 - 90;
+	var x = r * Math.cos( d * Math.PI / 180 ) + x0;
+	var y = r * Math.sin( d * Math.PI / 180 ) + y0;
+	ctx.beginPath();
+	ctx.strokeStyle = "#000";
+	ctx.lineWidth = 3;
+	ctx.moveTo( x0, y0 );
+	ctx.lineTo( x, y );
+	ctx.closePath();
+	ctx.stroke();
+}
+
+function resized(){
+  var browserWidth = window.innerWidth;
+  var browserHeight = window.innerHeight;
+  var canvas = document.getElementById( 'myCanvas' );
+  if( canvas && canvas.getContext ){
+    canvas.width = browserWidth;
+    canvas.height = browserHeight;
+  }
+}
+
+$(function(){
+  //. リサイズ時に Canvas サイズを変更する
+  $(window).on( 'load resize', function(){
+    resized();
+  });
+
+	setInterval( drawClock, 1000 );
+});
+</script>
+<style>
+</style>
+</head>
+<body>
+
+<div class="container">
+	<h1>Year Clock</h1>
+  <canvas id="myCanvas" style="width:1000; height:1000;"></canvas>
+</div>
+
+</body>
+</html>
