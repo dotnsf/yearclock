@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf8"/>
 <meta http-equiv="pragma" content="no-cache"/>
-<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -63,8 +63,8 @@ function drawClock(){
 	  var y2 = ( r - 10 ) * Math.sin( d * Math.PI / 180 ) + y0;
 
 	  ctx.beginPath();
-	  ctx.strokeStyle = "green";
-	  ctx.lineWidth = 5;
+	  ctx.strokeStyle = "rgba( 128, 255, 128, 0.8 )";
+	  ctx.lineWidth = 3;
 	  ctx.moveTo( x1, y1 );
 	  ctx.lineTo( x2, y2 );
 	  ctx.closePath();
